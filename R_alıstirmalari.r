@@ -56,3 +56,47 @@ switch(secim,
        "5" = glue("Üssünü Almanın Sonucu: {kuvvet(sayi1,sayi2)}"),
        print("Geçersiz seçim!")
 )
+
+
+
+# Mod değerini kolayca hesaplamak için DescTools paketi yüklenir
+install.packages(c("DescTools","glue"))
+
+# Paket kullanıma çağrılır
+library(DescTools)
+library(glue)
+
+# Verilen Vektörün Maks, Min, Medyan, Mod değerleri ve sıralanmış halini gösteren fonksiyon
+vektor_ozeti = function(vektor) {
+  # Maksimumun Hesaplanması
+  maks = max(vektor)
+  
+  # Minumumun Hesaplanması
+  minimum = min(vektor)
+    
+  # Medyanın Hesaplanması
+  medyan = median(vektor)
+  
+  # Modun Hesaplanması
+  mod_degeri = Mode(vektor)
+  
+  
+  # Ortalamanın Hesaplanması
+  ortalama = mean(vektor)
+  
+  # Vektörün Sıralanmış Hali
+  siralanmis = sort(vektor)
+  
+  return(list(maksimum_deger = maks,min_deger = minimum,medyan_deger = medyan,mod_deger = mod_degeri,ortalama_deger = ortalama ,siralanmis_vektor = siralanmis))
+}
+
+vektor = c(15,6,24,84,943,23,74,23,97,56,23)
+
+sonuc = vektor_ozeti(vektor)
+
+glue("Maksimum: {sonuc$maksimum_deger}
+      Minumum: {sonuc$min_deger}
+      Medyan: {sonuc$medyan_deger}
+      Mod: {sonuc$mod_deger}
+      Ortalama: {round(sonuc$ortalama_deger,2)}
+      Vektörün Sıralanmış Hali: {glue_collapse(sonuc$siralanmis_vektor, sep = ', ')}")
